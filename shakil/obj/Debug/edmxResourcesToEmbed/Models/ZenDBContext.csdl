@@ -1,0 +1,230 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ZenDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="AllService">
+    <Key>
+      <PropertyRef Name="serviceId" />
+    </Key>
+    <Property Name="serviceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ServiceName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ServiceDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="CategoryId" />
+    </Key>
+    <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="FeaturedProducts" Relationship="Self.FK_FeaturedProducts" FromRole="Categories" ToRole="FeaturedProducts" />
+    <NavigationProperty Name="Products" Relationship="Self.FK_Products_Categories" FromRole="Categories" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="Contact">
+    <Key>
+      <PropertyRef Name="ContactId" />
+    </Key>
+    <Property Name="ContactId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ContactPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ContactFax" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ContactEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ContactAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ContactMap" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="FeaturedProduct">
+    <Key>
+      <PropertyRef Name="FeaturedId" />
+    </Key>
+    <Property Name="FeaturedId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Price" Type="Double" Nullable="false" />
+    <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="CategoryId" Type="Int32" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Category" Relationship="Self.FK_FeaturedProducts" FromRole="FeaturedProducts" ToRole="Categories" />
+  </EntityType>
+  <EntityType Name="InvoiceItem">
+    <Key>
+      <PropertyRef Name="ItemId" />
+    </Key>
+    <Property Name="InvoiceNumber" Type="Int32" Nullable="false" />
+    <Property Name="ProductId" Type="Int32" Nullable="false" />
+    <Property Name="Price" Type="Double" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <Property Name="TotalPrice" Type="Double" Nullable="false" />
+    <Property Name="ItemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Invoice" Relationship="Self.FK_InvoiceItems_Invoices" FromRole="InvoiceItems" ToRole="Invoices" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_InvoiceItems_Products" FromRole="InvoiceItems" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="Invoice">
+    <Key>
+      <PropertyRef Name="InvoiceNumber" />
+    </Key>
+    <Property Name="InvoiceNumber" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="Subtotal" Type="Double" Nullable="false" />
+    <Property Name="ShippingAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DeliveryNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CardNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CardType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ExpireDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="TotalPrice" Type="Double" Nullable="false" />
+    <NavigationProperty Name="InvoiceItems" Relationship="Self.FK_InvoiceItems_Invoices" FromRole="Invoices" ToRole="InvoiceItems" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Invoices_Users" FromRole="Invoices" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Logo">
+    <Key>
+      <PropertyRef Name="LogoId" />
+    </Key>
+    <Property Name="LogoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LogoLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Manufacture">
+    <Key>
+      <PropertyRef Name="ManufactureId" />
+    </Key>
+    <Property Name="ManufactureId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Picture" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="MessageInfo">
+    <Key>
+      <PropertyRef Name="MessageId" />
+    </Key>
+    <Property Name="MessageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MessageName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="MessageEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="MessageText" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="ProductId" />
+    </Key>
+    <Property Name="ProductId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Price" Type="Double" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="CategoryId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Category" Relationship="Self.FK_Products_Categories" FromRole="Products" ToRole="Categories" />
+    <NavigationProperty Name="InvoiceItems" Relationship="Self.FK_InvoiceItems_Products" FromRole="Products" ToRole="InvoiceItems" />
+  </EntityType>
+  <EntityType Name="Slider">
+    <Key>
+      <PropertyRef Name="SliderId" />
+    </Key>
+    <Property Name="SliderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OfferTitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="OfferPercent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="OfferDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ImageLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ProductLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UserType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Invoices" Relationship="Self.FK_Invoices_Users" FromRole="Users" ToRole="Invoices" />
+  </EntityType>
+  <Association Name="FK_FeaturedProducts">
+    <End Role="Categories" Type="Self.Category" Multiplicity="1" />
+    <End Role="FeaturedProducts" Type="Self.FeaturedProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categories">
+        <PropertyRef Name="CategoryId" />
+      </Principal>
+      <Dependent Role="FeaturedProducts">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Products_Categories">
+    <End Role="Categories" Type="Self.Category" Multiplicity="1" />
+    <End Role="Products" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categories">
+        <PropertyRef Name="CategoryId" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InvoiceItems_Invoices">
+    <End Role="Invoices" Type="Self.Invoice" Multiplicity="1" />
+    <End Role="InvoiceItems" Type="Self.InvoiceItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Invoices">
+        <PropertyRef Name="InvoiceNumber" />
+      </Principal>
+      <Dependent Role="InvoiceItems">
+        <PropertyRef Name="InvoiceNumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InvoiceItems_Products">
+    <End Role="Products" Type="Self.Product" Multiplicity="1" />
+    <End Role="InvoiceItems" Type="Self.InvoiceItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="ProductId" />
+      </Principal>
+      <Dependent Role="InvoiceItems">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Invoices_Users">
+    <End Role="Users" Type="Self.User" Multiplicity="1" />
+    <End Role="Invoices" Type="Self.Invoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Invoices">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ZenDB" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AllServices" EntityType="Self.AllService" />
+    <EntitySet Name="Categories" EntityType="Self.Category" />
+    <EntitySet Name="Contacts" EntityType="Self.Contact" />
+    <EntitySet Name="FeaturedProducts" EntityType="Self.FeaturedProduct" />
+    <EntitySet Name="InvoiceItems" EntityType="Self.InvoiceItem" />
+    <EntitySet Name="Invoices" EntityType="Self.Invoice" />
+    <EntitySet Name="Logos" EntityType="Self.Logo" />
+    <EntitySet Name="Manufactures" EntityType="Self.Manufacture" />
+    <EntitySet Name="MessageInfoes" EntityType="Self.MessageInfo" />
+    <EntitySet Name="Products" EntityType="Self.Product" />
+    <EntitySet Name="Sliders" EntityType="Self.Slider" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <AssociationSet Name="FK_FeaturedProducts" Association="Self.FK_FeaturedProducts">
+      <End Role="Categories" EntitySet="Categories" />
+      <End Role="FeaturedProducts" EntitySet="FeaturedProducts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Products_Categories" Association="Self.FK_Products_Categories">
+      <End Role="Categories" EntitySet="Categories" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InvoiceItems_Invoices" Association="Self.FK_InvoiceItems_Invoices">
+      <End Role="Invoices" EntitySet="Invoices" />
+      <End Role="InvoiceItems" EntitySet="InvoiceItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InvoiceItems_Products" Association="Self.FK_InvoiceItems_Products">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="InvoiceItems" EntitySet="InvoiceItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Invoices_Users" Association="Self.FK_Invoices_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Invoices" EntitySet="Invoices" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
